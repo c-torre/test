@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Checkout</title>
+</head>
+
+<body>
+    <h1>Checkout</h1>
+    <h2>Selected Supermarket: {{ selected_supermarket }}</h2>
+    <form action="/checkout" method="post">
+        <label for="supermarket">Select Supermarket:</label>
+        <select name="supermarket" id="supermarket">
+            <option value="Masoutis" {% if selected_supermarket=='Masoutis' %}selected{% endif %}>Masoutis</option>
+            <option value="Sklavenitis" {% if selected_supermarket=='Sklavenitis' %}selected{% endif %}>Sklavenitis
+            </option>
+        </select>
+        <br><br>
+        <input type="submit" value="Change Supermarket">
+    </form>
+
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+        </tr>
+        {% for index, product in checkout_products.iterrows() %}
+        <tr>
+            <td>{{ product.Product }}</td>
+            <td>{{ product[selected_supermarket] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <h2>Total Price: {{ total_price }}</h2>
+</body>
+
+</html>
